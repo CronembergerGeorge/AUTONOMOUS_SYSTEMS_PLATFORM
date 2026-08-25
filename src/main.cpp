@@ -3,10 +3,12 @@
 #include "sensors/DHTSensor.h"
 #include "leds/LEDs.h"
 #include "wifi/WiFiManager.h"
+#include "sensors/UltrasonicSensor.h"
 
 DHTSensor dhtSensor;
 LEDs leds;
 WiFiManager wifiManager;
+UltrasonicSensor ultrasonicSensor;
 
 void setup() {
 
@@ -14,6 +16,7 @@ void setup() {
   dhtSensor.begin();
   leds.begin();
   wifiManager.begin();
+  ultrasonicSensor.begin();
 
   Serial.println();
   Serial.println("=== Modular Autonomous System ===");
@@ -23,6 +26,7 @@ void setup() {
 
 void loop() {
   dhtSensor.update();
+  ultrasonicSensor.update();
 
   if(dhtSensor.hasError()){
     Serial.println("Error reading DHT sensor.");
@@ -31,6 +35,15 @@ void loop() {
   } else {
     leds.redOff();
     leds.greenOn();
+  }
+  if(ultrasonicSensor.hasError()){
+    Serial.println("Error reading Ultrasonic sensor.");
+    leds.yellowOn();
+  } else {
+    leds.yellowOff();
+    Serial.print("Distance: ");
+    Serial.print(ultrasonicSensor.getDistance());
+    Serial.println(" cm");
   }
   Serial.print("Temperature: ");
   Serial.print(dhtSensor.getTemperature());
