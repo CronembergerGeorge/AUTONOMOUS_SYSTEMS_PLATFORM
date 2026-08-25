@@ -30,17 +30,17 @@ void loop() {
 
   if(dhtSensor.hasError()){
     Serial.println("Error reading DHT sensor.");
-    leds.redOn();
-    leds.greenOff();
-  } else {
     leds.redOff();
     leds.greenOn();
+  } else {
+    leds.redOn();
+    leds.greenOff();
   }
   if(ultrasonicSensor.hasError()){
     Serial.println("Error reading Ultrasonic sensor.");
-    leds.yellowOn();
-  } else {
     leds.yellowOff();
+  } else {
+    leds.yellowOn();
     Serial.print("Distance: ");
     Serial.print(ultrasonicSensor.getDistance());
     Serial.println(" cm");
@@ -51,6 +51,8 @@ void loop() {
   Serial.print("Humidity: ");
   Serial.print(dhtSensor.getHumidity());
   Serial.println(" %");
+  Serial.print("WiFi Status: ");
+  wifiManager.printStatus();
   
   Serial.println("-----------------------");
   delay(2000); // Aguarda 2 segundos antes da próxima leitura

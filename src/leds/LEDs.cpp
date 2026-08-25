@@ -3,7 +3,7 @@
 
 const int LED_RED = 21;
 const int LED_YELLOW = 22;
-const int LED_GREEN = 23;
+const int LED_GREEN = 19;
 
 void LEDs::begin() {
     pinMode(LED_RED, OUTPUT);
